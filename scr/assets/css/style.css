@@ -1,1 +1,21 @@
 /* style.css */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --accent-primary: #2563eb;
+  --accent-secondary: #1d4ed8;
+  --border-color: #e2e8f0;
+  --card-background: #ffffff;
+}
+
+html,
+body {
+  height: 100%;
+}
