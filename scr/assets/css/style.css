@@ -13,9 +13,29 @@
   --accent-secondary: #1d4ed8;
   --border-color: #e2e8f0;
   --card-background: #ffffff;
+  --primary-color: #2563eb;
+  --secondary-color: #1d4ed8;
+  --dark-bg: #0f1115;
+  --light-text: #f8fafc;
 }
 
 html,
 body {
   height: 100%;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+}
+
+.navbar {
+  background-color: rgba(15, 17, 21, 0.95);
+  padding: 1.5rem 2rem;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--light-text);
+  text-decoration: none;
 }
