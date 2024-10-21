@@ -30,13 +30,13 @@ jobs:
           npm install -g htmlhint stylelint stylelint-config-standard prettier
 
       - name: Run HTMLHint
-        run: npx htmlhint 'src/**/*.html'
+        run: npx htmlhint '**.html'
 
       - name: Run Stylelint
-        run: npx stylelint 'src/**/*.css'
+        run: npx stylelint '**.css'
 
       - name: Run Prettier
-        run: npx prettier --check 'src/**/*.{html,css,js}'
+        run: npx prettier --check '**.{html,css,js}'
 
       - name: Run Prettier Fix
-        run: npx prettier --write 'src/**/*.{html,css,js}'
+        run: npx prettier --write '**.{html,css,js}'
