@@ -78,6 +78,7 @@ header .background {
   margin: 0;
   width: 100%;
   max-width: 100%;
+  position: relative;
 }
 
 .hero-content h1 {
@@ -86,6 +87,7 @@ header .background {
   margin-bottom: 1.5rem;
   color: var(--accent);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Playfair Display', serif;
 }
 
 .hero-content p {
@@ -93,8 +95,33 @@ header .background {
   color: var(--light-text);
   margin-bottom: 2rem;
   line-height: 1.6;
+  font-style: italic;
+  position: relative;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
 }
 
+.hero-content p::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  top: -1rem;
+  opacity: 0.4;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-content p::after {
+  content: '"';
+  font-size: 4rem;
+  color: var(--accent);
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+  opacity: 0.4;
+  font-family: 'Playfair Display', serif;
+}
 .search-container {
   z-index: 2;
   width: 100%;
