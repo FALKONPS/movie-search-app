@@ -1,0 +1,44 @@
+name: Lint
+
+on:
+  # Trigger the workflow on push or pull request for any branch
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  run-linters:
+    name: Run HTML, CSS, and JS Linters
+    # Use a self-hosted runner instead of GitHub-hosted (ubuntu-latest)
+    runs-on: self-hosted
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      # Install Node.js dependencies including linters and formatters
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      # Run HTMLHint to lint HTML files
+      - name: Run HTMLHint
+        run: npx htmlhint 'src/**/*.html'
+
+      # Run Stylelint to lint CSS files
+      - name: Run Stylelint
+        run: npx stylelint 'src/**/*.css'
+
+      # Run Prettier to check code formatting for HTML, CSS, and JS
+      - name: Run Prettier
+        uses: wearerequired/lint-action@v2
+        with:
+          prettier: true
+          prettier_args: 'src/**/*.{html,css,js}'
