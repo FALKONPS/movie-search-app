@@ -25,15 +25,30 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.navbar {
-  background-color: rgba(15, 17, 21, 0.95);
+header .navbar {
+  position: relative;
+  z-index: 2;
   padding: 1.5rem 2rem;
   width: 100%;
-  z-index: 1000;
   transition: background-color 0.3s ease;
 }
 
+header .background {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/scr/assets/img/bg1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 110% 110%;
+  filter: blur(15px);
+}
 .logo {
+  z-index: 4;
+
   font-size: 1.8rem;
   font-weight: bold;
   color: var(--light-text);
@@ -45,10 +60,13 @@ body {
   align-items: center;
   height: calc(100vh - 85px);
   padding: 0 4rem;
+  overflow: hidden;
   background-color: var(--dark-bg);
+  position: relative;
 }
 
 .hero {
+  z-index: 2;
   height: auto;
   width: 50%;
   padding-right: 2rem;
@@ -60,6 +78,7 @@ body {
   margin: 0;
   width: 100%;
   max-width: 100%;
+  position: relative;
 }
 
 .hero-content h1 {
@@ -68,6 +87,7 @@ body {
   margin-bottom: 1.5rem;
   color: var(--accent);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Playfair Display', serif;
 }
 
 .hero-content p {
@@ -75,9 +95,35 @@ body {
   color: var(--light-text);
   margin-bottom: 2rem;
   line-height: 1.6;
+  font-style: italic;
+  position: relative;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
 }
 
+.hero-content p::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  top: -1rem;
+  opacity: 0.4;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-content p::after {
+  content: '"';
+  font-size: 4rem;
+  color: var(--accent);
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+  opacity: 0.4;
+  font-family: 'Playfair Display', serif;
+}
 .search-container {
+  z-index: 2;
   width: 100%;
   max-width: 600px;
   margin: 20px auto;
@@ -146,12 +192,14 @@ body {
 .shows-container {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .shows-container .show-card {
+  min-width: 200px;
   width: 12.5rem;
-  background: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
   overflow: hidden;
   color: var(--light-text);
