@@ -1,48 +1,42 @@
 name: Lint
 
 on:
-  # Trigger the workflow on push or pull request for any branch
   push:
     branches:
       - '**'
   pull_request:
     branches:
       - '**'
-
-  # Allow manual triggering of the workflow
+  
   workflow_dispatch:
 
 jobs:
   run-linters:
     name: Run HTML, CSS, and JS Linters
-    # Use a self-hosted runner instead of GitHub-hosted (ubuntu-latest)
     runs-on: self-hosted
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
-      # Update Node.js to version 16
+      # Set up Node.js version 16
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 16
 
-      # Install Node.js dependencies
-      - name: Install Node.js dependencies
-        run: npm install
+      - name: Install Linting Tools
+        run: |
+          npm install -g htmlhint stylelint stylelint-config-standard prettier
 
-      # Run HTMLHint to lint HTML files
       - name: Run HTMLHint
         run: npx htmlhint 'src/**/*.html'
 
-      # Run Stylelint to lint CSS files
       - name: Run Stylelint
         run: npx stylelint 'src/**/*.css'
 
-      # Run Prettier to check code formatting for HTML, CSS, and JS
       - name: Run Prettier
-        uses: wearerequired/lint-action@v2
-        with:
-          prettier: true
-          prettier_args: 'src/**/*.{html,css,js}'
+        run: npx prettier --check 'src/**/*.{html,css,js}'
+
+      - name: Run Prettier Fix
+        run: npx prettier --write 'src/**/*.{html,css,js}'
