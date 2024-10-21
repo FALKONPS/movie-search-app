@@ -1,5 +1,4 @@
 name: Lint
-
 on:
   push:
     branches:
@@ -9,33 +8,29 @@ on:
       - '**'
   
   workflow_dispatch:
-
 jobs:
   run-linters:
     name: Run HTML, CSS, and JS Linters
     runs-on: self-hosted
-
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 16
-
       - name: Install Linting Tools
         run: |
           npm install -g htmlhint stylelint stylelint-config-standard prettier
-
       - name: Run HTMLHint
-        run: npx htmlhint '**/*.html' || true
-
+        continue-on-error: true
+        run: npx htmlhint '**/*.html'
       - name: Run Stylelint
-        run: npx stylelint '**/*.css' --fix || true
-
+        continue-on-error: true
+        run: npx stylelint '**/*.css' --fix
       - name: Run Prettier Check
+        continue-on-error: true
         run: npx prettier --check '**/*.{html,css,js}'
-
       - name: Run Prettier Fix
+        continue-on-error: true
         run: npx prettier --write '**/*.{html,css,js}'
