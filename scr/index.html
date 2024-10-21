@@ -194,5 +194,62 @@
       </div>
       <div class="background"></div>
     </header>
+<!-- Html for Anime Suggestions -->
+<div class="container">
+  <div class="header">
+      <h2>My Anime Suggestions</h2>
+  </div>
+  <div class="carousel-container">
+      <div class="carousel" id="animeCarousel"></div>
+      <button class="carousel-button left" onclick="moveCarousel(-1)">&gt</button>
+      <button class="carousel-button right" onclick="moveCarousel(1)">&lt</button>
+  </div>
+</div>
+
+<script>
+  let animeData = [];
+  let currentIndex = 0;
+
+  async function fetchAnimeData() {
+      try {
+          const response = await axios.get('https://api.jikan.moe/v4/schedules/monday?sfw');
+          animeData = response.data.data.slice(0, 10); // Get first 10 anime
+          renderCarousel();
+      } catch (error) {
+          console.error('Error fetching anime data:', error);
+      }
+  }
+
+  function renderCarousel() {
+      const carousel = document.getElementById('animeCarousel');
+      carousel.innerHTML = '';
+      
+      for (let i = 0; i < 5; i++) {
+          const index = (currentIndex + i) % animeData.length;
+          const anime = animeData[index];
+          
+          const card = document.createElement('div');
+          card.className = 'anime-card';
+          card.innerHTML = `
+              <div class="card">
+              <div class="card-image">
+              <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="200" height="280">
+              <div class="episode-badge">New</div>
+
+              </div>
+              <div class="anime-title">${anime.title}</div>    
+          </div>
+          `;
+          carousel.appendChild(card);
+      }
+  }
+
+  function moveCarousel(direction) {
+      currentIndex = (currentIndex + direction + animeData.length) % animeData.length;
+      renderCarousel();
+  }
+
+  fetchAnimeData();
+</script>
   </body>
 </html>
