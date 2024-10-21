@@ -146,10 +146,12 @@ body {
 .shows-container {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 .shows-container .show-card {
+  min-width: 200px;
   width: 12.5rem;
   background: var(--text-primary);
   border-radius: 0.75rem;
