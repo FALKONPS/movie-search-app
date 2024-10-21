@@ -35,7 +35,7 @@ jobs:
         run: npx stylelint '**/*.css' --fix || true
 
       - name: Run Prettier Check
-        run: npx prettier --check '**/*.{html,css,js}' || true
+        run: npx prettier --check '**/*.{html,css,js}'
 
       - name: Run Prettier Fix
-        run: npx prettier --write '**/*.{html,css,js}' || true
+        run: npx prettier --write '**/*.{html,css,js}'
