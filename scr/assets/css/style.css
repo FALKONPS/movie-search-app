@@ -172,9 +172,20 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+.shows-container .content {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.shows-grid {
+.shows-container .status-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
   display: flex;
   flex-direction: row-reverse;
   gap: 1rem;
