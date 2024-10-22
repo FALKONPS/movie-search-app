@@ -367,14 +367,14 @@ header .background {
           width: 100%;
           max-width: 100%;
           position: relative;
-          color: red;
+          /* color: red; */
           font-size: 2.5rem;
           font-weight: bold;
           /* margin-bottom: 1.5rem; */
           color: var(--accent);
           font-family: cursive, serif;
         }
-        hr.anime-suggestionshr{
+        hr.anime-suggestions-hr{
           width:32%;
           margin-bottom: 1.5rem;
           text-align: left;
