@@ -1,5 +1,5 @@
 // search.js
-const genre = [
+const GENRES = [
   'Action',
   'Adventure',
   'Avant Garde',

@@ -298,3 +298,66 @@ header .background {
   border-radius: 0.25rem;
   font-size: 0.6875rem;
 }
+.filters-container {
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.filters-container .header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.filters-container .header h2 {
+  color: var(--light-text);
+  font-size: 1.2rem;
+}
+
+.filters-container .header button {
+  /* only text */
+  background: none;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.filters-container .header button:hover {
+  opacity: 1;
+}
+
+.filters-container .filter-section {
+  margin-bottom: 25px;
+}
+
+.filters-container .filter-section h3 {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.filters-container .filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filters-container .filter-options button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: var(--light-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
