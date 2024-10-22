@@ -46,10 +46,10 @@ header .background {
   background-size: 110% 110%;
   filter: blur(15px);
 }
-.logo {
+.navbar .logo {
   z-index: 4;
 
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: var(--light-text);
   text-decoration: none;
@@ -298,3 +298,44 @@ header .background {
   border-radius: 0.25rem;
   font-size: 0.6875rem;
 }
+
+/* start footer style */
+.footers {
+  text-align: center;
+}
+.footers a {color:#696969;}
+.footers p {color:#696969;}
+.footers ul {line-height:30px;}
+#social-fb:hover {
+     color: #3B5998;
+     transition:all .001s;
+ }
+ #social-tw:hover {
+     color: #4099FF;
+     transition:all .001s;
+ }
+ #social-insta:hover {
+     color: #d34836;
+     transition:all .001s;
+ }
+ #social-em:hover {
+     color: #d34836;
+     transition:all .001s;
+ }
+ .map-container{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+.footers .copy{
+  color: #fff;
+}
+/* end footer style */
