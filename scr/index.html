@@ -195,14 +195,17 @@
       <div class="background"></div>
     </header>
 <!-- Html for Anime Suggestions -->
+
+
 <div class="container">
   <div class="header">
-      <h2>My Anime Suggestions</h2>
+      <h2 class="anime-suggestions">My Anime Suggestions</h2>
+      <hr class="anime-suggestionshr">
   </div>
   <div class="carousel-container">
       <div class="carousel" id="animeCarousel"></div>
-      <button class="carousel-button left" onclick="moveCarousel(-1)">&gt</button>
-      <button class="carousel-button right" onclick="moveCarousel(1)">&lt</button>
+      <button class="carousel-button left" onclick="moveCarousel(-1)">&lt</button>
+      <button class="carousel-button right" onclick="moveCarousel(1)">&gt</button>
   </div>
 </div>
 
@@ -217,7 +220,7 @@ async function fetchAnimeData() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    animeData = data.data.slice(0, 10); // Get first 10 anime
+    animeData = data.data.slice(0, 20); // Get first 10 anime
     renderCarousel();
   } catch (error) {
     console.error('Error fetching anime data:', error);
@@ -228,7 +231,7 @@ function renderCarousel() {
   const carousel = document.getElementById('animeCarousel');
   carousel.innerHTML = '';
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 20; i++) {
     const index = (currentIndex + i) % animeData.length;
     const anime = animeData[index];
 
@@ -251,7 +254,24 @@ function moveCarousel(direction) {
   currentIndex = (currentIndex + direction + animeData.length) % animeData.length;
   renderCarousel();
 }
+  const rightButton = document.querySelector('.carousel-button.right');
+  const leftButton = document.querySelector('.carousel-button.left');
 
+  function startMoving(direction) {
+      intervalId = setInterval(() => moveCarousel(direction), 150); // Moves every 500ms
+    }
+
+
+    function stopMoving() {
+      clearInterval(intervalId);
+    }
+
+   
+    rightButton.addEventListener('mouseenter', () => startMoving(1));  // Move right continuously
+    rightButton.addEventListener('mouseleave', stopMoving);  // Stop moving when hover ends
+
+    leftButton.addEventListener('mouseenter', () => startMoving(-1));  // Move left continuously
+    leftButton.addEventListener('mouseleave', stopMoving);
 fetchAnimeData();
 
 </script>

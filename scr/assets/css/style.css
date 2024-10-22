@@ -299,18 +299,21 @@ header .background {
   font-size: 0.6875rem;
 }
 /* Anime Suggestions  */
-.container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.container {  margin: 0 auto; padding: 20px; }
         .header { text-align: center; }
-        .carousel-container { position: relative; }
+        .carousel-container { position: relative; transition: transform 0.3s ease-in-out;
+        }
         .carousel { display: flex; overflow-x: hidden; }
         .anime-card { flex: 0 0 auto; width: 200px; margin: 0 10px; position: relative; }
         .episode-badge { position: absolute; top: 10px; left: 10px; background-color: orange; color: white; padding: 5px; border-radius: 5px; }
         .anime-info { padding: 10px; color: white; }
         .anime-title { font-weight: bold; color: white; font-size: 15px; text-align: center; padding-top: 5px; position:absolute; bottom:20px; left: 30px;}
         .anime-year { font-size: 0.9em; color:white; }
-        .carousel-button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; font-size: 24px; padding: 10px; cursor: pointer; }
-        .carousel-button.left { left: 10px; }
-        .carousel-button.right { right: 10px; }
+        .carousel-button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; font-size: 24px; padding: 10px; cursor: pointer; color: black; font-size: 50px; font-weight: 900; background-color: rgba(255, 255, 0, 0.349);}
+        .carousel-button.left { left: 10px; height: 330px;  border-bottom-left-radius: 15px; border-top-left-radius: 15px;  }
+        .carousel-button.right { right: 0px; height: 330px; }
+        
+        
         .card {
             width: 200px;
             height: 330px;
@@ -356,4 +359,30 @@ header .background {
         .card-info {
             color: #bdc3c7;
             font-size: 14px;
+        }
+        h2.anime-suggestions{
+          text-align: left;
+          /* padding: 15px; */
+          margin: 0;
+          width: 100%;
+          max-width: 100%;
+          position: relative;
+          color: red;
+          font-size: 2.5rem;
+          font-weight: bold;
+          /* margin-bottom: 1.5rem; */
+          color: var(--accent);
+          font-family: cursive, serif;
+        }
+        hr.anime-suggestionshr{
+          width:32%;
+          margin-bottom: 1.5rem;
+          text-align: left;
+          /* border: 4px solid white;
+          box-shadow: 0 0 10px 1px black; */
+          border: 0;
+          height: 0; 
+          box-shadow: 0 0 10px 1px rgb(255, 255, 255);
+
+
         }
