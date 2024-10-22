@@ -19,7 +19,8 @@ const GENRES = [
 ];
 
 let activeGenres = [];
-let selectYear = -1;
+let selectYear = 0;
+let selectseason = '';
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
@@ -70,4 +71,9 @@ initializeFilters();
 document.getElementById('year-select').addEventListener('change', (e) => {
   selectYear = e.target.value;
   console.log(`select ${selectYear}`);
+});
+
+document.getElementById('season-select').addEventListener('change', (e) => {
+  selectseason = e.target.value;
+  console.log(`select ${selectseason}`);
 });
