@@ -21,6 +21,7 @@ const GENRES = [
 let activeGenres = [];
 let selectYear = 0;
 let selectSeason = '';
+let sortBy = '';
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
@@ -44,7 +45,7 @@ function toggleGenre(button) {
     // Remove genre
     activeGenres = activeGenres.filter((item) => item !== genre);
   }
-  console.log('Activate[' + activeGenres + ']');
+  console.log(`Activate ${activeGenres}`);
 }
 
 function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
@@ -80,10 +81,26 @@ function addEventListeners() {
   });
 }
 
+function toggleSort(button) {
+  const sortButtons = document.querySelectorAll('#sort-filters button');
+  sortButtons.forEach((btn) => btn.classList.remove('active'));
+  button.classList.add('active');
+  sortBy = button.dataset.sort;
+  console.log(`sortBy ${sortBy}`);
+}
+
+function initializeSortButtons() {
+  const sortButtons = document.querySelectorAll('#sort-filters button');
+  sortButtons.forEach((button) => {
+    button.addEventListener('click', () => toggleSort(button));
+  });
+}
+
 // Initialize
 function initialize() {
-  generatorYears();
+  initializeSortButtons();
   initializeGenres();
+  generatorYears();
   addEventListeners();
 }
 
