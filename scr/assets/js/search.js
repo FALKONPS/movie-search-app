@@ -17,32 +17,16 @@ const GENRES = [
   'Supernatural',
   'Suspense',
 ];
+let activeGenres = [];
 
-genre.sort((a, b) => a.length - b.length);
-
-function addLabels() {
-  // <span class="hint-label">Comedy</span>
-  const hintsFilter = document.getElementById('hintsFilter');
-  genre.forEach((item) => {
-    let dateSpan = document.createElement('span');
-    dateSpan.classList.add('hint-label');
-    dateSpan.innerHTML = item;
-    hintsFilter.append(dateSpan);
+function initializeGenres() {
+  const genreContainer = document.getElementById('genre-filters');
+  GENRES.sort().forEach((genre) => {
+    const button = document.createElement('button');
+    button.textContent = genre;
+    button.dataset.genre = genre.toLowerCase();
+    button.addEventListener('click', () => toggleGenre(button));
+    genreContainer.appendChild(button);
   });
 }
-
-async function fetchSearchData() {
-  await fetch('https://api.jikan.moe/v4/anime')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      console.log(data.data);
-      animeData = data.data;
-    });
-}
-
-fetchSearchData();
-addLabels();
+initializeGenres();
