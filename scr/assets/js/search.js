@@ -17,7 +17,9 @@ const GENRES = [
   'Supernatural',
   'Suspense',
 ];
+
 let activeGenres = [];
+let selectYear = -1;
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
@@ -44,8 +46,28 @@ function toggleGenre(button) {
   console.log('Activate[' + activeGenres + ']');
 }
 
+function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
+  const yearSelect = document.getElementById('year-select');
+  yearSelect.innerHTML = '<option value="">Select Year</option>';
+
+  for (let year = START_YEAR; year >= END_YEAR; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+}
+
 // Initialize
 function initializeFilters() {
+  generatorYears();
   initializeGenres();
 }
 initializeFilters();
+
+// Event
+
+document.getElementById('year-select').addEventListener('change', (e) => {
+  selectYear = e.target.value;
+  console.log(`select ${selectYear}`);
+});
