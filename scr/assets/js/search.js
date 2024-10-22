@@ -24,9 +24,28 @@ function initializeGenres() {
   GENRES.sort().forEach((genre) => {
     const button = document.createElement('button');
     button.textContent = genre;
+    // data-genre=<name-of-genre>
     button.dataset.genre = genre.toLowerCase();
     button.addEventListener('click', () => toggleGenre(button));
     genreContainer.appendChild(button);
   });
 }
-initializeGenres();
+function toggleGenre(button) {
+  const genre = button.dataset.genre;
+  button.classList.toggle('active');
+
+  if (button.classList.contains('active')) {
+    // Add genre
+    activeGenres.push(genre);
+  } else {
+    // Remove genre
+    activeGenres = activeGenres.filter((item) => item !== genre);
+  }
+  console.log('Activate[' + activeGenres + ']');
+}
+
+// Initialize
+function initializeFilters() {
+  initializeGenres();
+}
+initializeFilters();
