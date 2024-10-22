@@ -82,6 +82,10 @@ function addEventListeners() {
     });
     document.getElementById('season-select').value = '';
     document.getElementById('year-select').value = '';
+    activeGenres = [];
+    selectYear = 0;
+    selectSeason = '';
+    sortBy = '';
   });
 }
 
