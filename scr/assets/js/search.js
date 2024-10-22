@@ -20,7 +20,7 @@ const GENRES = [
 
 let activeGenres = [];
 let selectYear = 0;
-let selectseason = '';
+let selectSeason = '';
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
@@ -67,8 +67,16 @@ function addEventListeners() {
   });
 
   document.getElementById('season-select').addEventListener('change', (e) => {
-    selectseason = e.target.value;
-    console.log(`select ${selectseason}`);
+    selectSeason = e.target.value;
+    console.log(`select ${selectSeason}`);
+  });
+
+  document.getElementById('rest-btn').addEventListener('click', (e) => {
+    document.querySelectorAll('.filter-options button').forEach((button) => {
+      button.classList.remove('active');
+    });
+    document.getElementById('season-select').value = '';
+    document.getElementById('year-select').value = '';
   });
 }
 
