@@ -384,3 +384,20 @@ header .background {
   background: var(--dark-bg);
   color: var(--light-text);
 }
+.filters-container .apply-button {
+  width: 100%;
+  background: var(--accent);
+  color: var(--light-text);
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+}
+
+.filters-container .apply-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}

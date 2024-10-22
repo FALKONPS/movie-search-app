@@ -62,6 +62,10 @@ function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
 
 // Event
 function addEventListeners() {
+  document.getElementById('query-data-btn').addEventListener('click', (e) => {
+    // query api
+    console.log('query api');
+  });
   document.getElementById('year-select').addEventListener('change', (e) => {
     selectYear = e.target.value;
     console.log(`select ${selectYear}`);
