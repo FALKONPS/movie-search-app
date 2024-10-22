@@ -59,21 +59,24 @@ function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
   }
 }
 
+// Event
+function addEventListeners() {
+  document.getElementById('year-select').addEventListener('change', (e) => {
+    selectYear = e.target.value;
+    console.log(`select ${selectYear}`);
+  });
+
+  document.getElementById('season-select').addEventListener('change', (e) => {
+    selectseason = e.target.value;
+    console.log(`select ${selectseason}`);
+  });
+}
+
 // Initialize
-function initializeFilters() {
+function initialize() {
   generatorYears();
   initializeGenres();
+  addEventListeners();
 }
-initializeFilters();
 
-// Event
-
-document.getElementById('year-select').addEventListener('change', (e) => {
-  selectYear = e.target.value;
-  console.log(`select ${selectYear}`);
-});
-
-document.getElementById('season-select').addEventListener('change', (e) => {
-  selectseason = e.target.value;
-  console.log(`select ${selectseason}`);
-});
+initialize();
