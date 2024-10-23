@@ -439,3 +439,25 @@ header .background {
   filter: brightness(0.3);
 }
 
+.anime-container .status-label {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+  background-color: #e6b800;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.5;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+.anime-container .card:hover .status-label {
+  transform: translateY(0px);
+  /* z-index fix hide element */
+  z-index: 1;
+  opacity: 1;
+}
+
