@@ -421,6 +421,13 @@ header .background {
   cursor: pointer;
   width: 100%;
 }
+
+.anime-container .image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .anime-container .image img {
   width: 100%;
   height: 100%;
