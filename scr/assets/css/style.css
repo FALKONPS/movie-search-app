@@ -410,3 +410,6 @@ header .background {
   max-width: 1200px;
   margin: 0 auto;
 }
+.filter-hidden  {
+  display: none;
+}
