@@ -401,3 +401,98 @@ header .background {
   background: #1d4ed8;
   transform: translateY(-2px);
 }
+
+.anime-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.filter-hidden {
+  display: none;
+}
+.anime-container .card {
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  aspect-ratio: 2 / 3;
+  cursor: pointer;
+  width: 100%;
+}
+
+.anime-container .image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.anime-container .image img {
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+/* When hovering over the card, apply styles to the image. */
+.anime-container .card:hover .image img {
+  filter: brightness(0.3);
+}
+
+.anime-container .status-label {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+  background-color: #e6b800;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.5;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+.anime-container .card:hover .status-label {
+  transform: translateY(0px);
+  /* z-index fix hide element */
+  z-index: 1;
+  opacity: 1;
+}
+
+.anime-container .card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  color: white;
+  z-index: 1;
+}
+.anime-container .info {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #bdbdbd;
+  font-weight: 500;
+}
+.anime-container .title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.anime-container .card-content hr {
+  background: #ed1d61;
+  color: #ed1d61;
+  height: 2px;
+  border: 0;
+}
+
+.anime-container .separator {
+  color: #bdbdbd;
+}
