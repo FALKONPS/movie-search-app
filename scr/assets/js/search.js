@@ -59,9 +59,21 @@ function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
     yearSelect.appendChild(option);
   }
 }
+function toggleFilter(e) {
+  const filterContainer = document.querySelector('.filters-container');
+  if (filterContainer.classList.contains('filter-visible')) {
+    document.getElementById('show-filter-btn').textContent = 'Show Filter';
+  } else {
+    document.getElementById('show-filter-btn').textContent = 'Hide Filter';
+  }
+  filterContainer.classList.toggle('filter-visible');
+}
 
 // Event
 function addEventListeners() {
+  document
+    .getElementById('show-filter-btn')
+    .addEventListener('click', toggleFilter);
   document.getElementById('query-data-btn').addEventListener('click', (e) => {
     // query api
     console.log('query api');

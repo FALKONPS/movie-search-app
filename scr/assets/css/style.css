@@ -303,9 +303,18 @@ header .background {
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  margin-top: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
 }
 
+.filters-container.filter-visible {
+  /* Animation */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 .filters-container .header {
   display: flex;
   justify-content: space-between;
