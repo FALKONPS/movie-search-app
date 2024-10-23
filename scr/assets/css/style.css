@@ -461,3 +461,38 @@ header .background {
   opacity: 1;
 }
 
+.anime-container .card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  color: white;
+  z-index: 1;
+}
+.anime-container .info {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #bdbdbd;
+  font-weight: 500;
+}
+.anime-container .title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-content hr {
+  background: #ed1d61;
+  color: #ed1d61;
+  height: 2px;
+  border: 0;
+}
+
+.separator {
+  color: #bdbdbd;
+}
