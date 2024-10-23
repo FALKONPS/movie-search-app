@@ -431,4 +431,11 @@ header .background {
 .anime-container .image img {
   width: 100%;
   height: 100%;
+  transition: all 0.3s ease;
 }
+
+/* When hovering over the card, apply styles to the image. */
+.anime-container .card:hover .image img {
+  filter: brightness(0.3);
+}
+
