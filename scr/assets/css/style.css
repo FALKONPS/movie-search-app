@@ -486,13 +486,13 @@ header .background {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.card-content hr {
+.anime-container .card-content hr {
   background: #ed1d61;
   color: #ed1d61;
   height: 2px;
   border: 0;
 }
 
-.separator {
+.anime-container .separator {
   color: #bdbdbd;
 }
