@@ -48,7 +48,7 @@
           </div>
           <div class="filter-button">
             <button class="" id="show-filter-btn">Show Filter</button>
-            <button class="">More</button>
+            <button class="">Sort</button>
           </div>
           <div class="filters-container">
             <div class="header">
@@ -81,14 +81,14 @@
             </div>
             <!-- SORT SECTION -->
             <div class="filter-section">
-              <h3>Sort By:</h3>
+              <h3>Order By:</h3>
+
               <div class="filter-options" id="sort-filters">
-                <button data-sort="members">Members</button>
-                <button data-sort="score">Score</button>
-                <button data-sort="start_date">Start Date</button>
-                <button data-sort="title">Title</button>
-                <button data-sort="studio">Studio</button>
-                <button data-sort="licensor">Licensor</button>
+                <button data-sort="popularity" class="active">
+                  popularity
+                </button>
+                <button data-sort="rank">rank</button>
+                <button data-sort="score">score</button>
               </div>
             </div>
             <button class="apply-button" id="query-data-btn">

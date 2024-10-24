@@ -43,8 +43,8 @@ const FILTER_DATA = {
   activeGenres: [],
   selectYear: 0,
   selectSeason: '',
-  sortBy: '',
-  keywordSearch: '',
+  keyword: '',
+  order_by: '',
 };
 
 const API_ENDPOINTS = {
@@ -107,9 +107,7 @@ function toggleFilter(e) {
 function addEventListeners() {
   document.getElementById('input-search').addEventListener('input', (e) => {
     // query api
-    FILTER_DATA.keywordSearch = e.target.value;
-    console.log(e.target.value);
-  });
+      });
   document
     .getElementById('show-filter-btn')
     .addEventListener('click', toggleFilter);
@@ -136,7 +134,7 @@ function addEventListeners() {
     FILTER_DATA.activeGenres = [];
     FILTER_DATA.selectYear = 0;
     FILTER_DATA.selectSeason = '';
-    FILTER_DATA.sortBy = '';
+    FILTER_DATA.order_by = '';
   });
 }
 
@@ -144,8 +142,8 @@ function toggleSort(button) {
   const sortButtons = document.querySelectorAll('#sort-filters button');
   sortButtons.forEach((btn) => btn.classList.remove('active'));
   button.classList.add('active');
-  FILTER_DATA.sortBy = button.dataset.sort;
-  console.log(`FILTER_DATA.sortBy ${FILTER_DATA.sortBy}`);
+  FILTER_DATA.order_by = button.dataset.sort;
+  console.log(`FILTER_DATA.order_by ${FILTER_DATA.order_by}`);
 }
 
 function initializeSortButtons() {
