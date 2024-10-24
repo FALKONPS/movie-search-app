@@ -38,7 +38,7 @@ const GENRES = [
   { id: 78, name: 'Time Travel' },
   { id: 31, name: 'Super Power' },
 ];
-
+// ['popularity', 'score', 'rank']
 const FILTER_DATA = {
   activeGenres: [],
   selectYear: 0,
@@ -116,7 +116,7 @@ function addEventListeners() {
       );
     }
     // query api
-      });
+  });
   document
     .getElementById('show-filter-btn')
     .addEventListener('click', toggleFilter);
@@ -162,6 +162,30 @@ function initializeSortButtons() {
   sortButtons.forEach((button) => {
     button.addEventListener('click', () => toggleSort(button));
   });
+}
+
+function renderCards(item) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+  card.innerHTML = `
+ <div class="image">
+  <div class="status-label">${item.score}</div>
+  <img
+  src="${item.imageUrl}"
+  />
+  <div class="card-content">
+  <h3 class="title">${item.title}</h3>
+  <hr />
+  <div class="info">
+  <span>${item.year}</span>
+  <span class="separator">•</span>
+  <span>${item.title}</span>
+  <span class="separator">•</span>
+  </div>
+  </div>
+  </div>
+  `;
+  document.getElementById('anime-grid').appendChild(card);
 }
 
 function advancedSearch(keyword = '', order_by = 'popularity', genres = []) {
