@@ -413,7 +413,7 @@ header .background {
 
 .anime-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 20px;
   max-width: 1200px;
@@ -504,4 +504,19 @@ header .background {
 
 .anime-container .separator {
   color: #bdbdbd;
+}
+
+.filter-button {
+  padding: 4px 16px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.filter-button button {
+  background: none;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  opacity: 0.8;
 }

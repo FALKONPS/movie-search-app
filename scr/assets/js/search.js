@@ -22,6 +22,7 @@ let activeGenres = [];
 let selectYear = 0;
 let selectSeason = '';
 let sortBy = '';
+let keywordSearch = '';
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
@@ -62,15 +63,20 @@ function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
 function toggleFilter(e) {
   const filterContainer = document.querySelector('.filters-container');
   if (filterContainer.classList.contains('filter-visible')) {
-    document.getElementById('show-filter-btn').textContent = 'Show Filter';
+    e.target.textContent = 'Show Filter';
   } else {
-    document.getElementById('show-filter-btn').textContent = 'Hide Filter';
+    e.target.textContent = 'Hide Filter';
   }
   filterContainer.classList.toggle('filter-visible');
 }
 
 // Event
 function addEventListeners() {
+  document.getElementById('input-search').addEventListener('input', (e) => {
+    // query api
+    keywordSearch = e.target.value;
+    console.log(e.target.value);
+  });
   document
     .getElementById('show-filter-btn')
     .addEventListener('click', toggleFilter);
