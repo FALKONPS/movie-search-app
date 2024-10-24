@@ -544,11 +544,11 @@ header .page-container {
   color: white;
 }
 
-.section-anime .trending {
+.section-anime .display {
   margin-bottom: 40px;
 }
 
-.section-anime .trending .header {
+.section-anime .display .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -557,30 +557,30 @@ header .page-container {
   padding-bottom: 10px;
 }
 
-.section-anime .trending .title-wrapper {
+.section-anime .display .title-wrapper {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.section-anime .trending .title {
+.section-anime .display .title {
   font-size: 24px;
   font-weight: bold;
   color: white;
 }
 
-.section-anime .trending .subtitle {
+.section-anime .display .subtitle {
   font-size: 14px;
   color: #888;
   margin-top: 4px;
 }
 
-.section-anime .trending .arrows {
+.section-anime .display .arrows {
   display: flex;
   gap: 10px;
 }
 
-.section-anime .trending .arrow {
+.section-anime .display .arrow {
   width: 30px;
   height: 30px;
   background-color: #1a1a1a;
@@ -592,11 +592,11 @@ header .page-container {
   transition: background-color 0.3s ease;
 }
 
-.section-anime .trending .arrow:hover {
+.section-anime .display .arrow:hover {
   background-color: #ff0000;
 }
 
-.section-anime .trending .arrow::before {
+.section-anime .display .arrow::before {
   content: '';
   width: 8px;
   height: 8px;
@@ -604,11 +604,11 @@ header .page-container {
   border-bottom: 2px solid white;
 }
 
-.section-anime .trending .arrow.left::before {
+.section-anime .display .arrow.left::before {
   transform: rotate(135deg);
 }
 
-.section-anime .trending .arrow.right::before {
+.section-anime .display .arrow.right::before {
   transform: rotate(-45deg);
 }
 
