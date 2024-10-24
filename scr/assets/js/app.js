@@ -5,10 +5,39 @@ const API_ENDPOINTS = {
   CURRENT_SEASON: '/seasons/now',
   SEASON: '/seasons', // /{year}/{season}
 };
+
+let movieAnimeItems = [];
+let seasonAnimeItems = [];
+
 function getCurrentSeasonAnime() {
   return fetch(`${API_ENDPOINTS.BASE}${API_ENDPOINTS.CURRENT_SEASON}?sfw=true`)
     .then(handleResponse)
     .then(processAnimeData)
+    .then((item) => {
+      const container = document.getElementById('anime-grid');
+      container.innerHTML = '';
+      seasonAnimeItems = item;
+      item.forEach((item) => {
+        container.appendChild(createCard(item));
+      });
+      setupCarousel('anime-grid');
+    })
+    .catch(handleError);
+}
+function getMoiveAnime() {
+  return fetch(`${API_ENDPOINTS.BASE}/anime?type=movie&order_by=popularity`)
+    .then(handleResponse)
+    .then(processAnimeData)
+    .then((item) => {
+      const container = document.getElementById('anime-moive-grid');
+      container.innerHTML = '';
+      movieAnimeItems = item;
+
+      item.forEach((item) => {
+        container.appendChild(createCard(item));
+      });
+      setupCarousel();
+    })
     .catch(handleError);
 }
 
@@ -41,5 +70,66 @@ function processAnimeData(data) {
   }));
   return animeList;
 }
+function renderInitialCards() {}
+function createCard(item) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+  card.innerHTML = `
+    <div class="image">
+      <div class="status-label">${item.score}</div>
+      <img src="${item.imageUrl}" />
+      <div class="card-content">
+        <h3 class="title">${item.title}</h3>
+        <hr />
+        <div class="info">
+          <span>${item.year}</span>
+          <span class="separator">•</span>
+          <span>${item.title}</span>
+          <span class="separator">•</span>
+        </div>
+      </div>
+    </div>
+  `;
+  return card;
+}
 
-console.log(getCurrentSeasonAnime());
+function setupCarousel(name = 'anime-moive-grid') {
+  const container = document.getElementById(name);
+  const leftArrow = container.closest('section').querySelector('.arrow.right'); // select the close arrow to <name_container> easy ;)
+  const rightArrow = container.closest('section').querySelector('.arrow.left'); // select the close arrow to <name_container> easy ;)
+
+  let currentPosition = 0;
+  const cardWidth = 250 + 16; // width + gap
+  const visibleCards = Math.floor(container.offsetWidth / cardWidth);
+  let animeList = movieAnimeItems;
+  if (name == 'anime-grid') {
+    animeList = seasonAnimeItems;
+  }
+  function moveLeft() {
+    currentPosition += cardWidth;
+    if (currentPosition > 0) {
+      currentPosition = -(cardWidth * (animeList.length - visibleCards));
+    }
+    container.style.transform = `translateX(${currentPosition}px)`;
+  }
+
+  function moveRight() {
+    currentPosition -= cardWidth;
+    if (currentPosition < -(cardWidth * (animeList.length - visibleCards))) {
+      currentPosition = 0;
+    }
+    container.style.transform = `translateX(${currentPosition}px)`;
+  }
+
+  leftArrow.addEventListener('click', moveLeft);
+  rightArrow.addEventListener('click', moveRight);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') moveLeft();
+    if (e.key === 'ArrowRight') moveRight();
+  });
+}
+
+// getCurrentSeasonAnime();
+getCurrentSeasonAnime();
+getMoiveAnime();
