@@ -17,10 +17,11 @@
       <nav class="navbar">
         <div class="logo">Alnitak ⭐</div>
       </nav>
-      <div class="main-container">
+      <div class="page-container">
         <div class="search-container">
           <div class="search-box">
             <input
+              id="input-search"
               type="text"
               class="search-input"
               placeholder="Search movies, shows, and more..."
@@ -45,7 +46,11 @@
 
             <!-- END SVG ICON -->
           </div>
-          <div class="filters-container filter-hidden">
+          <div class="filter-button">
+            <button class="" id="show-filter-btn">Show Filter</button>
+            <button class="">Sort</button>
+          </div>
+          <div class="filters-container">
             <div class="header">
               <h2>FILTERS</h2>
               <button id="rest-btn">Clear all</button>
@@ -76,14 +81,14 @@
             </div>
             <!-- SORT SECTION -->
             <div class="filter-section">
-              <h3>Sort By:</h3>
+              <h3>Order By:</h3>
+
               <div class="filter-options" id="sort-filters">
-                <button data-sort="members">Members</button>
-                <button data-sort="score">Score</button>
-                <button data-sort="start_date">Start Date</button>
-                <button data-sort="title">Title</button>
-                <button data-sort="studio">Studio</button>
-                <button data-sort="licensor">Licensor</button>
+                <button data-sort="popularity" class="active">
+                  popularity
+                </button>
+                <button data-sort="rank">rank</button>
+                <button data-sort="score">score</button>
               </div>
             </div>
             <button class="apply-button" id="query-data-btn">
@@ -92,44 +97,10 @@
           </div>
         </div>
       </div>
+
       <div class="background"></div>
     </header>
-    <div class="anime-container">
-      <div class="card">
-        <div class="image">
-          <div class="status-label">Classic anime</div>
-          <img
-            src="https://cdn.myanimelist.net/images/anime/1130/120002l.jpg"
-          />
-          <div class="card-content">
-            <h3 class="title">Trigun</h3>
-            <hr />
-            <div class="info">
-              <span>1998</span>
-              <span class="separator">•</span>
-              <span>TV</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="image">
-          <div class="status-label">Classic anime</div>
-          <img
-            src="https://cdn.myanimelist.net/images/anime/1130/120002l.jpg"
-          />
-          <div class="card-content">
-            <h3 class="title">Trigun</h3>
-            <hr />
-            <div class="info">
-              <span>1998</span>
-              <span class="separator">•</span>
-              <span>TV</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="anime-container" id="anime-grid"></div>
     <script src="./assets/js/search.js"></script>
   </body>
 </html>
