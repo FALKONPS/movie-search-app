@@ -18,11 +18,13 @@ const GENRES = [
   'Suspense',
 ];
 
-let activeGenres = [];
-let selectYear = 0;
-let selectSeason = '';
-let sortBy = '';
-let keywordSearch = '';
+const FILTER_DATA = {
+  activeGenres: [],
+  selectYear: 0,
+  selectSeason: '',
+  sortBy: '',
+  keywordSearch: '',
+};
 
 const API_ENDPOINTS = {
   BASE: 'https://api.jikan.moe/v4',
@@ -49,12 +51,14 @@ function toggleGenre(button) {
 
   if (button.classList.contains('active')) {
     // Add genre
-    activeGenres.push(genre);
+    FILTER_DATA.activeGenres.push(genre);
   } else {
     // Remove genre
-    activeGenres = activeGenres.filter((item) => item !== genre);
+    FILTER_DATA.activeGenres = FILTER_DATA.activeGenres.filter(
+      (item) => item !== genre
+    );
   }
-  console.log(`Activate ${activeGenres}`);
+  console.log(`Activate ${FILTER_DATA.activeGenres}`);
 }
 
 function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
@@ -82,7 +86,7 @@ function toggleFilter(e) {
 function addEventListeners() {
   document.getElementById('input-search').addEventListener('input', (e) => {
     // query api
-    keywordSearch = e.target.value;
+    FILTER_DATA.keywordSearch = e.target.value;
     console.log(e.target.value);
   });
   document
@@ -93,13 +97,13 @@ function addEventListeners() {
     console.log('query api');
   });
   document.getElementById('year-select').addEventListener('change', (e) => {
-    selectYear = e.target.value;
-    console.log(`select ${selectYear}`);
+    FILTER_DATA.selectYear = e.target.value;
+    console.log(`select ${FILTER_DATA.selectYear}`);
   });
 
   document.getElementById('season-select').addEventListener('change', (e) => {
-    selectSeason = e.target.value;
-    console.log(`select ${selectSeason}`);
+    FILTER_DATA.selectSeason = e.target.value;
+    console.log(`select ${FILTER_DATA.selectSeason}`);
   });
 
   document.getElementById('rest-btn').addEventListener('click', (e) => {
@@ -108,10 +112,10 @@ function addEventListeners() {
     });
     document.getElementById('season-select').value = '';
     document.getElementById('year-select').value = '';
-    activeGenres = [];
-    selectYear = 0;
-    selectSeason = '';
-    sortBy = '';
+    FILTER_DATA.activeGenres = [];
+    FILTER_DATA.selectYear = 0;
+    FILTER_DATA.selectSeason = '';
+    FILTER_DATA.sortBy = '';
   });
 }
 
@@ -119,8 +123,8 @@ function toggleSort(button) {
   const sortButtons = document.querySelectorAll('#sort-filters button');
   sortButtons.forEach((btn) => btn.classList.remove('active'));
   button.classList.add('active');
-  sortBy = button.dataset.sort;
-  console.log(`sortBy ${sortBy}`);
+  FILTER_DATA.sortBy = button.dataset.sort;
+  console.log(`FILTER_DATA.sortBy ${FILTER_DATA.sortBy}`);
 }
 
 function initializeSortButtons() {
