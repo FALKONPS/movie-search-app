@@ -105,7 +105,16 @@ function toggleFilter(e) {
 
 // Event
 function addEventListeners() {
-  document.getElementById('input-search').addEventListener('input', (e) => {
+  document.getElementById('input-search').addEventListener('keypress', (e) => {
+    if (e.keyCode === 13) {
+      FILTER_DATA.keyword = e.target.value;
+      console.log(e.target.value);
+      advancedSearch(
+        FILTER_DATA.keyword,
+        FILTER_DATA.order_by,
+        FILTER_DATA.activeGenres
+      );
+    }
     // query api
       });
   document
@@ -113,6 +122,8 @@ function addEventListeners() {
     .addEventListener('click', toggleFilter);
   document.getElementById('query-data-btn').addEventListener('click', (e) => {
     // query api
+    const keyword = document.getElementById('input-search').value;
+    advancedSearch(keyword, FILTER_DATA.order_by, FILTER_DATA.activeGenres);
     console.log('query api');
   });
   document.getElementById('year-select').addEventListener('change', (e) => {
@@ -151,6 +162,88 @@ function initializeSortButtons() {
   sortButtons.forEach((button) => {
     button.addEventListener('click', () => toggleSort(button));
   });
+}
+
+function advancedSearch(keyword = '', order_by = 'popularity', genres = []) {
+  let base = API_ENDPOINTS.BASE;
+  let route = API_ENDPOINTS.SEARCH;
+  const params = new URLSearchParams();
+  route = API_ENDPOINTS.SEARCH + '?';
+  if (keyword) {
+    params.append('q', keyword);
+    console.log(
+      `KEYBORAD : ${keyword} OREDER BY: ${order_by} : GEBRES ${genres} `
+    );
+  } else if (genres.length > 0) {
+    let _genres = genres.join(',');
+    params.append('genres', _genres);
+  }
+  if (FILTER_DATA.order_by.includes(order_by)) {
+    params.append('order_by', order_by);
+  } else {
+    params.append('order_by', 'rank');
+  }
+  params.append('sfw', 'true');
+  let url = `${base}${route}${params.toString()}`;
+  console.log('Request URL:', url);
+
+  return fetch(url)
+    .then((response) => {
+      console.log('Response status:', response.status);
+      return response.json();
+    })
+    .then((data) => {
+      console.log('API Response:', data);
+      return processAnimeData(data);
+    })
+    .catch((error) => {
+      console.error('Search error:', error);
+      return handleError(error);
+    });
+}
+
+// https://api.jikan.moe/v4/seasons/now
+// https://api.jikan.moe/v4/seasons/{year}/{season}
+// https://api.jikan.moe/v4/anime?q={name}
+// https://api.jikan.moe/v4/genres/{genre}
+// https://api.jikan.moe/v4/anime?order_by=popularity
+// https://api.jikan.moe/v4/anime?order_by=score
+// https://api.jikan.moe/v4/anime?order_by=rank
+// https://api.jikan.moe/v4/top/anime?type=movie
+// https://api.jikan.moe/v4/anime?genres=2
+function handleResponse(response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+}
+
+function handleError(error) {
+  console.error('Error:', error);
+  const animeGrid = document.getElementById('anime-grid');
+  if (animeGrid) {
+    animeGrid.innerHTML = `<div class="error">Error loading anime: ${error.message}</div>`;
+  }
+  throw error;
+}
+
+function processAnimeData(data) {
+  const animeList = data.data.map((anime) => ({
+    id: anime.mal_id || '',
+    title: anime.title || '',
+    englishTitle: anime.title_english || '',
+    type: anime.type || '',
+    episodes: anime.episodes || '',
+    status: anime.status || '',
+    score: anime.score || '',
+    genres: anime.genres.map((g) => g.name) || '',
+    synopsis: anime.synopsis || '',
+    imageUrl: anime.images?.jpg?.large_image_url || null || '',
+    year: anime.year || '',
+    season: anime.season || '',
+  }));
+  document.getElementById('anime-grid').innerHTML = '';
+  animeList.reverse().map((item) => renderCards(item));
 }
 
 // Initialize
