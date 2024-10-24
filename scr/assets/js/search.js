@@ -1,21 +1,42 @@
 // search.js
+
 const GENRES = [
-  'Action',
-  'Adventure',
-  'Avant Garde',
-  'Award Winning',
-  'Comedy',
-  'Drama',
-  'Fantasy',
-  'Gourmet',
-  'Horror',
-  'Mystery',
-  'Romance',
-  'Sci-Fi',
-  'Slice of Life',
-  'Sports',
-  'Supernatural',
-  'Suspense',
+  { id: 1, name: 'Action' },
+  { id: 2, name: 'Adventure' },
+  { id: 4, name: 'Comedy' },
+  { id: 8, name: 'Drama' },
+  { id: 10, name: 'Fantasy' },
+  { id: 14, name: 'Horror' },
+  { id: 7, name: 'Mystery' },
+  { id: 22, name: 'Romance' },
+  { id: 24, name: 'Sci-Fi' },
+  { id: 36, name: 'Slice of Life' },
+  { id: 30, name: 'Sports' },
+  { id: 37, name: 'Supernatural' },
+  { id: 41, name: 'Suspense' },
+  { id: 13, name: 'Historical' },
+  { id: 19, name: 'Music' },
+  { id: 66, name: 'Mahou Shoujo' },
+  { id: 18, name: 'Mecha' },
+  { id: 40, name: 'Psychological' },
+  { id: 23, name: 'School' },
+  { id: 32, name: 'Vampire' },
+  { id: 82, name: 'Urban Fantasy' },
+  { id: 15, name: 'Kids' },
+  { id: 43, name: 'Josei' },
+  { id: 42, name: 'Seinen' },
+  { id: 25, name: 'Shoujo' },
+  { id: 27, name: 'Shounen' },
+  { id: 20, name: 'Parody' },
+  { id: 70, name: 'Performing Arts' },
+  { id: 71, name: 'Pets' },
+  { id: 38, name: 'Military' },
+  { id: 29, name: 'Space' },
+  { id: 11, name: 'Strategy Game' },
+  { id: 76, name: 'Survival' },
+  { id: 77, name: 'Team Sports' },
+  { id: 78, name: 'Time Travel' },
+  { id: 31, name: 'Super Power' },
 ];
 
 const FILTER_DATA = {
@@ -36,11 +57,11 @@ const API_ENDPOINTS = {
 
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
-  GENRES.sort().forEach((genre) => {
+  GENRES.forEach((genre) => {
     const button = document.createElement('button');
-    button.textContent = genre;
+    button.textContent = genre.name;
     // data-genre=<name-of-genre>
-    button.dataset.genre = genre.toLowerCase();
+    button.dataset.genre = genre.id;
     button.addEventListener('click', () => toggleGenre(button));
     genreContainer.appendChild(button);
   });
