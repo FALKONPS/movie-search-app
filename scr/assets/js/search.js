@@ -24,6 +24,14 @@ let selectSeason = '';
 let sortBy = '';
 let keywordSearch = '';
 
+const API_ENDPOINTS = {
+  BASE: 'https://api.jikan.moe/v4',
+  CURRENT_SEASON: '/seasons/now',
+  SEASON: '/seasons', // /{year}/{season}
+  SEARCH: '/anime',
+  GENRES: '/genres',
+};
+
 function initializeGenres() {
   const genreContainer = document.getElementById('genre-filters');
   GENRES.sort().forEach((genre) => {
