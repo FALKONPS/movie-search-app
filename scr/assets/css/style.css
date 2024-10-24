@@ -423,6 +423,7 @@ header .background {
 .filter-hidden {
   display: none;
 }
+.section-anime .grid .image,
 .anime-container .card {
   border-radius: 4px;
   overflow: hidden;
@@ -431,13 +432,13 @@ header .background {
   cursor: pointer;
   width: 100%;
 }
-
+.section-anime .grid .image,
 .anime-container .image {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
+.section-anime .grid .image img,
 .anime-container .image img {
   width: 100%;
   height: 100%;
@@ -445,10 +446,11 @@ header .background {
 }
 
 /* When hovering over the card, apply styles to the image. */
+.section-anime .grid .card:hover .image img,
 .anime-container .card:hover .image img {
   filter: brightness(0.3);
 }
-
+.section-anime .grid .status-label,
 .anime-container .status-label {
   position: absolute;
   z-index: 1;
@@ -464,13 +466,14 @@ header .background {
   transform: translateY(-5px);
   transition: all 0.3s ease;
 }
+.section-anime .grid .card:hover .status-label,
 .anime-container .card:hover .status-label {
   transform: translateY(0px);
   /* z-index fix hide element */
   z-index: 1;
   opacity: 1;
 }
-
+.section-anime .grid .card-content,
 .anime-container .card-content {
   position: absolute;
   bottom: 0;
@@ -480,6 +483,7 @@ header .background {
   color: white;
   z-index: 1;
 }
+.section-anime .grid .info,
 .anime-container .info {
   display: flex;
   gap: 8px;
@@ -488,6 +492,7 @@ header .background {
   color: #bdbdbd;
   font-weight: 500;
 }
+.section-anime .grid .title,
 .anime-container .title {
   font-size: 1rem;
   font-weight: 500;
@@ -496,13 +501,14 @@ header .background {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.section-anime .grid .card-content hr,
 .anime-container .card-content hr {
   background: #ed1d61;
   color: #ed1d61;
   height: 2px;
   border: 0;
 }
-
+.section-anime .grid .separator,
 .anime-container .separator {
   color: #bdbdbd;
 }
@@ -529,146 +535,89 @@ header .page-container {
   padding: 0 4rem;
   overflow: visible;
 }
-
-.container {
+.section-anime {
+  /* z-index: 99; */
+  height: 100vh;
   margin: 0 auto;
   padding: 20px;
-}
-.header {
-  text-align: center;
-}
-.carousel-container {
-  position: relative;
-  transition: transform 0.3s ease-in-out;
-}
-.carousel {
-  display: flex;
-  overflow-x: hidden;
-}
-.anime-card {
-  flex: 0 0 auto;
-  width: 200px;
-  margin: 0 10px;
-  position: relative;
-}
-.episode-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: orange;
+  background-color: var(--dark-bg);
   color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
-.anime-info {
-  padding: 10px;
-  color: white;
-}
-.anime-title {
-  font-weight: bold;
-  color: white;
-  font-size: 15px;
-  text-align: center;
-  padding-top: 5px;
-  position: absolute;
-  bottom: 20px;
-  left: 30px;
-}
-.anime-year {
-  font-size: 0.9em;
-  color: white;
-}
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 24px;
-  padding: 10px;
-  cursor: pointer;
-  color: black;
-  font-size: 50px;
-  font-weight: 900;
-  background-color: rgba(255, 255, 0, 0.349);
-}
-.carousel-button.left {
-  left: 10px;
-  height: 330px;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
-}
-.carousel-button.right {
-  right: 0px;
-  height: 330px;
 }
 
-.card {
-  width: 200px;
-  height: 330px;
-  background: linear-gradient(to bottom, #2c3e50, #34495e);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  flex: 0 0 auto;
+.section-anime .trending {
+  margin-bottom: 40px;
 }
-.card-image {
-  position: relative;
-  height: 330px;
-  overflow: hidden;
+
+.section-anime .trending .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff0000;
+  padding-bottom: 10px;
 }
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+.section-anime .trending .title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-.new-label {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #f39c12;
-  color: white;
-  padding: 5px 10px;
-  font-size: 12px;
+
+.section-anime .trending .title {
+  font-size: 24px;
   font-weight: bold;
-  border-radius: 3px;
-}
-.card-content {
-  padding: 15px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.card-title {
   color: white;
-  font-size: 18px;
-  margin: 0 0 5px 0;
 }
-.card-info {
-  color: #bdc3c7;
+
+.section-anime .trending .subtitle {
   font-size: 14px;
+  color: #888;
+  margin-top: 4px;
 }
-h2.anime-suggestions {
-  text-align: left;
-  /* padding: 15px; */
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
-  position: relative;
-  /* color: red; */
-  font-size: 2.5rem;
-  font-weight: bold;
-  /* margin-bottom: 1.5rem; */
-  color: var(--accent);
-  font-family: cursive, serif;
+
+.section-anime .trending .arrows {
+  display: flex;
+  gap: 10px;
 }
-hr.anime-suggestions-hr {
-  width: 32%;
-  margin-bottom: 1.5rem;
-  text-align: left;
-  /* border: 4px solid white;
-          box-shadow: 0 0 10px 1px black; */
-  border: 0;
-  height: 0;
-  box-shadow: 0 0 10px 1px rgb(255, 255, 255);
+
+.section-anime .trending .arrow {
+  width: 30px;
+  height: 30px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.section-anime .trending .arrow:hover {
+  background-color: #ff0000;
+}
+
+.section-anime .trending .arrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+.section-anime .trending .arrow.left::before {
+  transform: rotate(135deg);
+}
+
+.section-anime .trending .arrow.right::before {
+  transform: rotate(-45deg);
+}
+
+.section-anime .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  grid-auto-flow: column;
+  gap: 20px;
+  margin-bottom: 30px;
 }
