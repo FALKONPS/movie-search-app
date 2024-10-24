@@ -194,65 +194,72 @@
       </div>
       <div class="background"></div>
     </header>
-<!-- Html for Anime Suggestions -->
+    <!-- Html for Anime Suggestions -->
 
+    <div class="container">
+      <div class="header">
+        <h2 class="anime-suggestions">My Anime Suggestions</h2>
+        <hr class="anime-suggestions-hr" />
+      </div>
+      <div class="carousel-container">
+        <div class="carousel" id="animeCarousel"></div>
+        <button class="carousel-button left" onclick="moveCarousel(-1)">
+          &lt
+        </button>
+        <button class="carousel-button right" onclick="moveCarousel(1)">
+          &gt
+        </button>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="header">
-      <h2 class="anime-suggestions">My Anime Suggestions</h2>
-      <hr class="anime-suggestions-hr">
-  </div>
-  <div class="carousel-container">
-      <div class="carousel" id="animeCarousel"></div>
-      <button class="carousel-button left" onclick="moveCarousel(-1)">&lt</button>
-      <button class="carousel-button right" onclick="moveCarousel(1)">&gt</button>
-  </div>
-</div>
+    <div class="container">
+      <div class="header">
+        <h2 class="anime-suggestions">Anime Seasons</h2>
+        <hr class="anime-suggestions-hr" />
+      </div>
+      <div class="carousel-container" style="margin-top: 20px">
+        <div class="carousel" id="seasonCarousel"></div>
+        <button class="carousel-button left" onclick="moveseasonCarousel(-1)">
+          &lt;
+        </button>
+        <button class="carousel-button right" onclick="moveseasonCarousel(1)">
+          &gt;
+        </button>
+      </div>
+    </div>
 
-<div class="container">
-  <div class="header">
-    <h2 class="anime-suggestions">Anime Seasons</h2>
-    <hr class="anime-suggestions-hr">
-</div>
-<div class="carousel-container" style="margin-top: 20px;">
-  <div class="carousel" id="seasonCarousel"></div>
-  <button class="carousel-button left" onclick="moveseasonCarousel(-1)">&lt;</button>
-  <button class="carousel-button right" onclick="moveseasonCarousel(1)">&gt;</button>
-</div>
-</div>
+    <script>
+      let animeData = [];
+      let currentIndex = 0;
 
+      async function fetchAnimeData() {
+        try {
+          const response = await fetch(
+            'https://api.jikan.moe/v4/schedules/monday?sfw'
+          );
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          animeData = data.data.slice(0, 40); // Get first 10 anime
+          renderCarousel();
+          renderseasonCarousel();
+        } catch (error) {
+          console.error('Error fetching anime data:', error);
+        }
+      }
 
-<script>
-let animeData = [];
-let currentIndex = 0;
+      function renderCarousel() {
+        const carousel = document.getElementById('animeCarousel');
+        carousel.innerHTML = '';
 
-async function fetchAnimeData() {
-  try {
-    const response = await fetch('https://api.jikan.moe/v4/schedules/monday?sfw');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    animeData = data.data.slice(0, 40); // Get first 10 anime
-    renderCarousel();
-    renderseasonCarousel();
+        for (let i = 0; i < 20; i++) {
+          const index = (currentIndex + i) % animeData.length;
+          const anime = animeData[index];
 
-  } catch (error) {
-    console.error('Error fetching anime data:', error);
-  }
-}
-
-function renderCarousel() {
-  const carousel = document.getElementById('animeCarousel');
-  carousel.innerHTML = '';
-
-  for (let i = 0; i < 20; i++) {
-    const index = (currentIndex + i) % animeData.length;
-    const anime = animeData[index];
-
-    const card = document.createElement('div');
-    card.className = 'anime-card';
-    card.innerHTML = `
+          const card = document.createElement('div');
+          card.className = 'anime-card';
+          card.innerHTML = `
         <div class="card">
         <div class="card-image">
         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="200" height="280">
@@ -261,22 +268,24 @@ function renderCarousel() {
         <div class="anime-title">${anime.title}</div>    
         </div>
     `;
-    carousel.appendChild(card);
-  }
-}
-function renderseasonCarousel(){
-  const carousel = document.getElementById('seasonCarousel');
-  carousel.innerHTML = '';
-  for (let i = 0; i < 20; i++){
-    const index = (currentIndex + i) % animeData.length;
-    const anime = animeData[index];
+          carousel.appendChild(card);
+        }
+      }
+      function renderseasonCarousel() {
+        const carousel = document.getElementById('seasonCarousel');
+        carousel.innerHTML = '';
+        for (let i = 0; i < 20; i++) {
+          const index = (currentIndex + i) % animeData.length;
+          const anime = animeData[index];
 
-    const season = anime.season ? anime.season.charAt(0).toUpperCase() + anime.season.slice(1) : 'Unknown';
-    const year = anime.year || 'Unknown Year';
+          const season = anime.season
+            ? anime.season.charAt(0).toUpperCase() + anime.season.slice(1)
+            : 'Unknown';
+          const year = anime.year || 'Unknown Year';
 
-    const card = document.createElement('div');
-        card.className = 'anime-card';
-        card.innerHTML = `
+          const card = document.createElement('div');
+          card.className = 'anime-card';
+          card.innerHTML = `
             <div class="card">
             <div class="card-image">
             <img src="${anime.images.jpg.image_url}" alt="${anime.title}" width="200" height="280">
@@ -285,58 +294,67 @@ function renderseasonCarousel(){
             <div class="anime-title">${season} - ${year}</div>    
             </div>
             `;
-        carousel.appendChild(card);
-    }
-}
+          carousel.appendChild(card);
+        }
+      }
 
+      function moveCarousel(direction) {
+        currentIndex =
+          (currentIndex + direction + animeData.length) % animeData.length;
+        renderCarousel();
+      }
 
+      function moveseasonCarousel(direction) {
+        currentIndex =
+          (currentIndex + direction + animeData.length) % animeData.length;
+        renderseasonCarousel();
+      }
+      const rightButton = document.querySelector('.carousel-button.right');
+      const leftButton = document.querySelector('.carousel-button.left');
 
-function moveCarousel(direction) {
-  currentIndex = (currentIndex + direction + animeData.length) % animeData.length;
-  renderCarousel();
-}
+      function startMoving(direction) {
+        intervalId = setInterval(() => moveCarousel(direction), 150); // Moves every 500ms
+      }
 
-function moveseasonCarousel(direction) {
-  currentIndex = (currentIndex + direction + animeData.length) % animeData.length;
-  renderseasonCarousel();
-}
-  const rightButton = document.querySelector('.carousel-button.right');
-  const leftButton = document.querySelector('.carousel-button.left');
+      function stopMoving() {
+        clearInterval(intervalId);
+      }
 
-  function startMoving(direction) {
-      intervalId = setInterval(() => moveCarousel(direction), 150); // Moves every 500ms
-    }
+      rightButton.addEventListener('mouseenter', () => startMoving(1)); // Move right continuously
+      rightButton.addEventListener('mouseleave', stopMoving); // Stop moving when hover ends
 
+      leftButton.addEventListener('mouseenter', () => startMoving(-1)); // Move left continuously
+      leftButton.addEventListener('mouseleave', stopMoving);
+      // for Season movie
 
-    function stopMoving() {
-      clearInterval(intervalId);
-    }
+      const seasonRightButton = document.querySelectorAll(
+        '.carousel-button.right'
+      )[1];
+      const seasonLeftButton = document.querySelectorAll(
+        '.carousel-button.left'
+      )[1];
 
-   
-    rightButton.addEventListener('mouseenter', () => startMoving(1));  // Move right continuously
-    rightButton.addEventListener('mouseleave', stopMoving);  // Stop moving when hover ends
+      function startMovingseason(direction) {
+        seasonIntervalId = setInterval(
+          () => moveseasonCarousel(direction),
+          150
+        );
+      }
 
-    leftButton.addEventListener('mouseenter', () => startMoving(-1));  // Move left continuously
-    leftButton.addEventListener('mouseleave', stopMoving);
-    // for Season movie
+      function stopMovingseason() {
+        clearInterval(seasonIntervalId);
+      }
 
-    const seasonRightButton = document.querySelectorAll('.carousel-button.right')[1];
-    const seasonLeftButton = document.querySelectorAll('.carousel-button.left')[1];
-
-    function startMovingseason(direction) {
-    seasonIntervalId = setInterval(() => moveseasonCarousel(direction), 150);
-    }
-
-    function stopMovingseason() {
-    clearInterval(seasonIntervalId);
-   }
-
-   seasonRightButton.addEventListener('mouseenter', () => startMovingseason(1));
-   seasonRightButton.addEventListener('mouseleave', stopMovingseason);
-   seasonLeftButton.addEventListener('mouseenter', () => startMovingseason(-1));
-   seasonLeftButton.addEventListener('mouseleave', stopMovingseason);
-fetchAnimeData();
-
-</script>
+      seasonRightButton.addEventListener('mouseenter', () =>
+        startMovingseason(1)
+      );
+      seasonRightButton.addEventListener('mouseleave', stopMovingseason);
+      seasonLeftButton.addEventListener('mouseenter', () =>
+        startMovingseason(-1)
+      );
+      seasonLeftButton.addEventListener('mouseleave', stopMovingseason);
+      fetchAnimeData();
+    </script>
+    <script src="./assets/js/app.js"></script>
   </body>
 </html>
