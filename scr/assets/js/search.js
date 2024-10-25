@@ -44,7 +44,8 @@ const FILTER_DATA = {
   selectYear: 0,
   selectSeason: '',
   keyword: '',
-  order_by: '',
+  order_by: 'popularity',
+  currentPage: 1,
 };
 
 const API_ENDPOINTS = {
@@ -102,6 +103,15 @@ function toggleFilter(e) {
   }
   filterContainer.classList.toggle('filter-visible');
 }
+function loadPage(e) {
+  advancedSearch(
+    FILTER_DATA.keyword,
+    FILTER_DATA.order_by,
+    FILTER_DATA.activeGenres,
+    FILTER_DATA.currentPage,
+    false
+  );
+}
 
 // Event
 function addEventListeners() {
@@ -112,7 +122,8 @@ function addEventListeners() {
       advancedSearch(
         FILTER_DATA.keyword,
         FILTER_DATA.order_by,
-        FILTER_DATA.activeGenres
+        FILTER_DATA.activeGenres,
+        FILTER_DATA.currentPage
       );
     }
     // query api
@@ -120,10 +131,16 @@ function addEventListeners() {
   document
     .getElementById('show-filter-btn')
     .addEventListener('click', toggleFilter);
+  document.getElementById('load-more-btn').addEventListener('click', loadPage);
   document.getElementById('query-data-btn').addEventListener('click', (e) => {
     // query api
-    const keyword = document.getElementById('input-search').value;
-    advancedSearch(keyword, FILTER_DATA.order_by, FILTER_DATA.activeGenres);
+    FILTER_DATA.keyword = document.getElementById('input-search').value;
+    advancedSearch(
+      FILTER_DATA.keyword,
+      FILTER_DATA.order_by,
+      FILTER_DATA.activeGenres,
+      FILTER_DATA.currentPage
+    );
     console.log('query api');
   });
   document.getElementById('year-select').addEventListener('change', (e) => {
@@ -192,12 +209,14 @@ function advancedSearch(
   keyword = '',
   order_by = 'popularity',
   genres = [],
-  page = 1
+  page = 1,
+  clear_old = true
 ) {
   let base = API_ENDPOINTS.BASE;
   let route = API_ENDPOINTS.SEARCH;
   const params = new URLSearchParams();
   route = API_ENDPOINTS.SEARCH + '?';
+
   if (keyword) {
     params.append('q', keyword);
     console.log(
@@ -209,6 +228,7 @@ function advancedSearch(
   }
   if (page > 0) {
     params.append('page', page);
+    FILTER_DATA.currentPage = FILTER_DATA.currentPage + 1;
   }
   if (FILTER_DATA.order_by.includes(order_by)) {
     params.append('order_by', order_by);
@@ -226,7 +246,7 @@ function advancedSearch(
     })
     .then((data) => {
       console.log('API Response:', data);
-      return processAnimeData(data);
+      return processAnimeData(data, clear_old);
     })
     .catch((error) => {
       console.error('Search error:', error);
@@ -259,7 +279,7 @@ function handleError(error) {
   throw error;
 }
 
-function processAnimeData(data) {
+function processAnimeData(data, _clear = true) {
   const animeList = data.data.map((anime) => ({
     id: anime.mal_id || '',
     title: anime.title || '',
@@ -274,7 +294,9 @@ function processAnimeData(data) {
     year: anime.year || '',
     season: anime.season || '',
   }));
-  document.getElementById('anime-search-grid').innerHTML = '';
+  if (_clear) {
+    document.getElementById('anime-search-grid').innerHTML = '';
+  }
   animeList.map((item) => renderCards(item));
 }
 
@@ -287,4 +309,9 @@ function initialize() {
 }
 
 initialize();
-advancedSearch('', 'popularity', '', 1);
+advancedSearch(
+  FILTER_DATA.keyword,
+  FILTER_DATA.order_by,
+  FILTER_DATA.activeGenres,
+  FILTER_DATA.currentPage
+);

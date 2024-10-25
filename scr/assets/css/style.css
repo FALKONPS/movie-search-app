@@ -636,6 +636,19 @@ header .page-container {
   gap: 20px;
   margin-bottom: 30px;
 }
+
+.section-anime .load-more {
+  width: 100%;
+  background: #ed1d1d;
+  color: var(--light-text);
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+}
 /* start footer style */
 footer {
   min-height: fit-content;
