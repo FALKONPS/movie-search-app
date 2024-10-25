@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alnitak ⭐</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Alnitak ⭐</div>
+      </nav>
+      <div class="page-container">
+        <div class="search-container">
+          <div class="search-box">
+            <input
+              id="input-search"
+              type="text"
+              class="search-input"
+              placeholder="Search movies, shows, and more..."
+            />
+
+            <!-- START SVG ICON -->
+
+            <svg
+              class="search-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+
+            <!-- END SVG ICON -->
+          </div>
+          <div class="filter-button">
+            <button class="" id="show-filter-btn">Show Filter</button>
+            <button class="">Sort</button>
+          </div>
+          <div class="filters-container">
+            <div class="header">
+              <h2>FILTERS</h2>
+              <button id="rest-btn">Clear all</button>
+            </div>
+
+            <!-- GENRE SECTION -->
+            <div class="filter-section">
+              <h3>Genre:</h3>
+              <div class="filter-options" id="genre-filters">
+                <!-- DATA -->
+              </div>
+            </div>
+            <!-- SEASON & YEAR SECTION -->
+            <div class="filter-section">
+              <h3>Season & Year:</h3>
+              <div class="season-year-container">
+                <select class="filter-select" id="season-select">
+                  <option value="">Select Season</option>
+                  <option value="spring">Spring</option>
+                  <option value="summer">Summer</option>
+                  <option value="fall">Fall</option>
+                  <option value="winter">Winter</option>
+                </select>
+                <select class="filter-select" id="year-select">
+                  <!-- DATA -->
+                </select>
+              </div>
+            </div>
+            <!-- SORT SECTION -->
+            <div class="filter-section">
+              <h3>Order By:</h3>
+
+              <div class="filter-options" id="sort-filters">
+                <button data-sort="popularity" class="active">
+                  popularity
+                </button>
+                <button data-sort="rank">rank</button>
+                <button data-sort="score">score</button>
+              </div>
+            </div>
+            <button class="apply-button" id="query-data-btn">
+              Apply filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="background"></div>
+    </header>
+    <div class="anime-container" id="anime-grid"></div>
+    <script src="./assets/js/search.js"></script>
+  </body>
+</html>
