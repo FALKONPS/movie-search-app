@@ -67,6 +67,12 @@ function initializeGenres() {
     genreContainer.appendChild(button);
   });
 }
+
+function updateTitle(text = 'Results :') {
+  const titleElement = document.querySelector('h2.title');
+  titleElement.textContent = text;
+}
+
 function toggleGenre(button) {
   const genre = button.dataset.genre;
   button.classList.toggle('active');
@@ -308,6 +314,10 @@ function processAnimeData(data, _clear = true) {
     document.getElementById('load-more-btn').style.display = 'none';
   }
   animeList.map((item) => renderCards(item));
+  const animeGrid = document.getElementById('anime-search-grid');
+  updateTitle(
+    `Results (${animeGrid.children.length}): ${FILTER_DATA.keyword} `
+  );
 }
 
 // Initialize
