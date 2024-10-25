@@ -188,7 +188,12 @@ function renderCards(item) {
   document.getElementById('anime-grid').appendChild(card);
 }
 
-function advancedSearch(keyword = '', order_by = 'popularity', genres = []) {
+function advancedSearch(
+  keyword = '',
+  order_by = 'popularity',
+  genres = [],
+  page = 1
+) {
   let base = API_ENDPOINTS.BASE;
   let route = API_ENDPOINTS.SEARCH;
   const params = new URLSearchParams();
@@ -202,10 +207,13 @@ function advancedSearch(keyword = '', order_by = 'popularity', genres = []) {
     let _genres = genres.join(',');
     params.append('genres', _genres);
   }
+  if (page > 0) {
+    params.append('page', page);
+  }
   if (FILTER_DATA.order_by.includes(order_by)) {
     params.append('order_by', order_by);
   } else {
-    params.append('order_by', 'rank');
+    params.append('order_by', 'popularity');
   }
   params.append('sfw', 'true');
   let url = `${base}${route}${params.toString()}`;
@@ -267,7 +275,7 @@ function processAnimeData(data) {
     season: anime.season || '',
   }));
   document.getElementById('anime-grid').innerHTML = '';
-  animeList.reverse().map((item) => renderCards(item));
+  animeList.map((item) => renderCards(item));
 }
 
 // Initialize
@@ -279,3 +287,4 @@ function initialize() {
 }
 
 initialize();
+advancedSearch('', 'popularity', '', 1);
