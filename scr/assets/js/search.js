@@ -185,7 +185,7 @@ function renderCards(item) {
   </div>
   </div>
   `;
-  document.getElementById('anime-grid').appendChild(card);
+  document.getElementById('anime-search-grid').appendChild(card);
 }
 
 function advancedSearch(
@@ -274,7 +274,7 @@ function processAnimeData(data) {
     year: anime.year || '',
     season: anime.season || '',
   }));
-  document.getElementById('anime-grid').innerHTML = '';
+  document.getElementById('anime-search-grid').innerHTML = '';
   animeList.map((item) => renderCards(item));
 }
 
