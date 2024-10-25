@@ -216,7 +216,10 @@ function advancedSearch(
   let route = API_ENDPOINTS.SEARCH;
   const params = new URLSearchParams();
   route = API_ENDPOINTS.SEARCH + '?';
-
+  if (clear_old) {
+    FILTER_DATA.currentPage = 1;
+    page = 1;
+  }
   if (keyword) {
     params.append('q', keyword);
     console.log(
@@ -228,7 +231,6 @@ function advancedSearch(
   }
   if (page > 0) {
     params.append('page', page);
-    FILTER_DATA.currentPage = FILTER_DATA.currentPage + 1;
   }
   if (FILTER_DATA.order_by.includes(order_by)) {
     params.append('order_by', order_by);
@@ -239,6 +241,7 @@ function advancedSearch(
   let url = `${base}${route}${params.toString()}`;
   console.log('Request URL:', url);
 
+  FILTER_DATA.currentPage = FILTER_DATA.currentPage + 1;
   return fetch(url)
     .then((response) => {
       console.log('Response status:', response.status);
