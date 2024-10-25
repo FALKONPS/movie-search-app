@@ -300,6 +300,13 @@ function processAnimeData(data, _clear = true) {
   if (_clear) {
     document.getElementById('anime-search-grid').innerHTML = '';
   }
+  if (animeList.length > 0) {
+    console.log(`There are more: ${animeList}`);
+    document.getElementById('load-more-btn').style.display = 'block';
+  } else {
+    console.log('There are no more items');
+    document.getElementById('load-more-btn').style.display = 'none';
+  }
   animeList.map((item) => renderCards(item));
 }
 
