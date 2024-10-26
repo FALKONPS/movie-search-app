@@ -46,6 +46,15 @@ const FILTER_DATA = {
   keyword: '',
   order_by: 'popularity',
   currentPage: 1,
+  sortIndex: 2, //score
+  sortModes: [
+    { mode: 'popularity', label: 'Popularity', order: 'desc' },
+    { mode: 'popularity', label: 'Popularity', order: 'asc' },
+    { mode: 'score', label: 'Score', order: 'desc' },
+    { mode: 'score', label: 'Score', order: 'asc' },
+    { mode: 'rank', label: 'Rank', order: 'desc' },
+    { mode: 'rank', label: 'Rank', order: 'asc' },
+  ],
 };
 
 const API_ENDPOINTS = {
@@ -100,6 +109,7 @@ function generatorYears(START_YEAR = 2025, END_YEAR = 1950) {
     yearSelect.appendChild(option);
   }
 }
+
 function toggleFilter(e) {
   const filterContainer = document.querySelector('.filters-container');
   if (filterContainer.classList.contains('filter-visible')) {
@@ -109,6 +119,7 @@ function toggleFilter(e) {
   }
   filterContainer.classList.toggle('filter-visible');
 }
+
 function loadPage(e) {
   advancedSearch(
     FILTER_DATA.keyword,
@@ -118,9 +129,37 @@ function loadPage(e) {
     false
   );
 }
+function updateSortButtonText() {
+  const sortBtn = document.getElementById('sort-btn');
+  const currentSort = FILTER_DATA.sortModes[FILTER_DATA.sortIndex];
+  const arrow = currentSort.order === 'desc' ? '↓' : '↑';
+  sortBtn.textContent = `Sort by ${currentSort.label} ${arrow}`;
+}
 
-// Event
+function cycleSortMode(e) {
+  FILTER_DATA.sortIndex =
+    (FILTER_DATA.sortIndex + 1) % FILTER_DATA.sortModes.length;
+  const currentSort = FILTER_DATA.sortModes[FILTER_DATA.sortIndex];
+  FILTER_DATA.order_by = currentSort.mode;
+
+  updateSortButtonText();
+
+  const params = new URLSearchParams();
+  params.append('order_by', currentSort.mode);
+  params.append('sort', currentSort.order);
+
+  advancedSearch(
+    FILTER_DATA.keyword,
+    currentSort.mode,
+    FILTER_DATA.activeGenres,
+    1,
+    true
+  );
+}
+
 function addEventListeners() {
+  document.getElementById('sort-btn').addEventListener('click', cycleSortMode);
+
   document.getElementById('input-search').addEventListener('keypress', (e) => {
     if (e.keyCode === 13) {
       FILTER_DATA.keyword = e.target.value;
@@ -134,10 +173,13 @@ function addEventListeners() {
     }
     // query api
   });
+
   document
     .getElementById('show-filter-btn')
     .addEventListener('click', toggleFilter);
+
   document.getElementById('load-more-btn').addEventListener('click', loadPage);
+
   document.getElementById('query-data-btn').addEventListener('click', (e) => {
     // query api
     FILTER_DATA.keyword = document.getElementById('input-search').value;
@@ -149,6 +191,7 @@ function addEventListeners() {
     );
     console.log('query api');
   });
+
   document.getElementById('year-select').addEventListener('change', (e) => {
     FILTER_DATA.selectYear = e.target.value;
     console.log(`select ${FILTER_DATA.selectYear}`);
@@ -168,22 +211,9 @@ function addEventListeners() {
     FILTER_DATA.activeGenres = [];
     FILTER_DATA.selectYear = 0;
     FILTER_DATA.selectSeason = '';
-    FILTER_DATA.order_by = '';
-  });
-}
-
-function toggleSort(button) {
-  const orderButtons = document.querySelectorAll('#sort-filters button');
-  orderButtons.forEach((btn) => btn.classList.remove('active'));
-  button.classList.add('active');
-  FILTER_DATA.order_by = button.dataset.sort;
-  console.log(`FILTER_DATA.order_by ${FILTER_DATA.order_by}`);
-}
-
-function initializeorderButtons() {
-  const orderButtons = document.querySelectorAll('#sort-filters button');
-  orderButtons.forEach((button) => {
-    button.addEventListener('click', () => toggleSort(button));
+    FILTER_DATA.order_by = 'popularity';
+    FILTER_DATA.sortIndex = 0;
+    updateSortButtonText();
   });
 }
 
@@ -222,10 +252,12 @@ function advancedSearch(
   let route = API_ENDPOINTS.SEARCH;
   const params = new URLSearchParams();
   route = API_ENDPOINTS.SEARCH + '?';
+
   if (clear_old) {
     FILTER_DATA.currentPage = 1;
     page = 1;
   }
+
   if (keyword) {
     params.append('q', keyword);
     console.log(
@@ -235,19 +267,21 @@ function advancedSearch(
     let _genres = genres.join(',');
     params.append('genres', _genres);
   }
+
   if (page > 0) {
     params.append('page', page);
   }
-  if (FILTER_DATA.order_by.includes(order_by)) {
-    params.append('order_by', order_by);
-  } else {
-    params.append('order_by', 'popularity');
-  }
+
+  const currentSort = FILTER_DATA.sortModes[FILTER_DATA.sortIndex];
+  params.append('order_by', currentSort.mode);
+  params.append('sort', currentSort.order);
+
   params.append('sfw', 'true');
   let url = `${base}${route}${params.toString()}`;
   console.log('Request URL:', url);
 
   FILTER_DATA.currentPage = FILTER_DATA.currentPage + 1;
+
   return fetch(url)
     .then((response) => {
       console.log('Response status:', response.status);
@@ -303,17 +337,21 @@ function processAnimeData(data, _clear = true) {
     year: anime.year || '',
     season: anime.season || '',
   }));
+
   if (_clear) {
     document.getElementById('anime-search-grid').innerHTML = '';
   }
+
   if (animeList.length > 0) {
-    console.log(`There are more: ${animeList}`);
+    console.log(`There are more items: ${animeList.length}`);
     document.getElementById('load-more-btn').style.display = 'block';
   } else {
     console.log('There are no more items');
     document.getElementById('load-more-btn').style.display = 'none';
   }
+
   animeList.map((item) => renderCards(item));
+
   const animeGrid = document.getElementById('anime-search-grid');
   updateTitle(
     `Results (${animeGrid.children.length}): ${FILTER_DATA.keyword} `
@@ -322,10 +360,11 @@ function processAnimeData(data, _clear = true) {
 
 // Initialize
 function initialize() {
-  initializeorderButtons();
   initializeGenres();
   generatorYears();
   addEventListeners();
+
+  updateSortButtonText();
 }
 
 initialize();
