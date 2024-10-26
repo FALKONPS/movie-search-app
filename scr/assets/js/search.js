@@ -365,12 +365,14 @@ function initialize() {
   addEventListeners();
 
   updateSortButtonText();
+  advancedSearch(
+    FILTER_DATA.keyword,
+    FILTER_DATA.order_by,
+    FILTER_DATA.activeGenres,
+    FILTER_DATA.currentPage
+  );
 }
 
 initialize();
-advancedSearch(
-  FILTER_DATA.keyword,
-  FILTER_DATA.order_by,
-  FILTER_DATA.activeGenres,
-  FILTER_DATA.currentPage
-);
+
+document.addEventListener('DOMContentLoaded', initialize);
