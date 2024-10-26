@@ -92,18 +92,16 @@ header .background.search {
 
 .hero {
   z-index: 2;
-  height: auto;
-  width: 50%;
   padding-right: 2rem;
 }
 
 .hero-content {
+  display: block;
   text-align: left;
   padding: 0;
   margin: 0;
-  width: 100%;
-  max-width: 100%;
   position: relative;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .hero-content h1 {
@@ -221,6 +219,13 @@ header .background.search {
   flex-wrap: nowrap;
 }
 
+.show-card.active {
+  transform: scale(1.1);
+}
+
+.show-card.inactive {
+  transform: scale(0.9);
+}
 .shows-container .show-card {
   min-width: 200px;
   width: 12.5rem;
@@ -228,11 +233,8 @@ header .background.search {
   border-radius: 0.75rem;
   overflow: hidden;
   color: var(--light-text);
-  transition: transform 0.3s;
-}
-
-.shows-container .show-card:hover {
-  transform: scale(1.05);
+  transition: all 0.5s ease-in-out;
+  transform-origin: center center;
 }
 
 .shows-container .image-container {

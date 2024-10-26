@@ -1,0 +1,117 @@
+@media (max-width: 768px) {
+  .shows-container {
+    display: none;
+  }
+
+  .navbar .logo {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .main-container {
+    padding: 0 1rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .nav-links {
+    display: none;
+  }
+
+  .section-anime {
+    padding: 15px;
+    margin: 0 10px;
+  }
+
+  .section-anime .display .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-anime .display .title-wrapper {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .section-anime .display .title {
+    font-size: 20px;
+  }
+
+  .section-anime .display .subtitle {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .section-anime .display .arrows {
+    margin-top: 10px;
+  }
+
+  .section-anime .display .arrow {
+    width: 25px;
+    height: 25px;
+  }
+
+  .section-anime .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .section-anime .grid#anime-search-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .section-anime .load-more {
+    width: 100px;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .search-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-input {
+    padding: 12px 40px 12px 15px;
+    font-size: 14px;
+  }
+
+  .search-icon {
+    right: 10px;
+  }
+
+  .filter-button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .filters-container {
+    display: none;
+    margin-top: 15px;
+  }
+
+  .filter-button button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .show-filters-active .filters-container {
+    display: block;
+  }
+}
