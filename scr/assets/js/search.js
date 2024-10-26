@@ -173,16 +173,16 @@ function addEventListeners() {
 }
 
 function toggleSort(button) {
-  const sortButtons = document.querySelectorAll('#sort-filters button');
-  sortButtons.forEach((btn) => btn.classList.remove('active'));
+  const orderButtons = document.querySelectorAll('#sort-filters button');
+  orderButtons.forEach((btn) => btn.classList.remove('active'));
   button.classList.add('active');
   FILTER_DATA.order_by = button.dataset.sort;
   console.log(`FILTER_DATA.order_by ${FILTER_DATA.order_by}`);
 }
 
-function initializeSortButtons() {
-  const sortButtons = document.querySelectorAll('#sort-filters button');
-  sortButtons.forEach((button) => {
+function initializeorderButtons() {
+  const orderButtons = document.querySelectorAll('#sort-filters button');
+  orderButtons.forEach((button) => {
     button.addEventListener('click', () => toggleSort(button));
   });
 }
@@ -322,7 +322,7 @@ function processAnimeData(data, _clear = true) {
 
 // Initialize
 function initialize() {
-  initializeSortButtons();
+  initializeorderButtons();
   initializeGenres();
   generatorYears();
   addEventListeners();
