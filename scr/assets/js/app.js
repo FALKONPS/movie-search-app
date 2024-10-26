@@ -20,7 +20,7 @@ function getCurrentSeasonAnime() {
       item.forEach((item) => {
         container.appendChild(createCard(item));
       });
-      setupCarousel('anime-grid');
+      setupMovement('anime-grid');
     })
     .catch(handleError);
 }
@@ -36,7 +36,7 @@ function getMoiveAnime() {
       item.forEach((item) => {
         container.appendChild(createCard(item));
       });
-      setupCarousel();
+      setupMovement();
     })
     .catch(handleError);
 }
@@ -93,32 +93,49 @@ function createCard(item) {
   return card;
 }
 
-function setupCarousel(name = 'anime-moive-grid') {
+function setupMovement(name = 'anime-moive-grid') {
   const container = document.getElementById(name);
-  const leftArrow = container.closest('section').querySelector('.arrow.right'); // select the close arrow to <name_container> easy ;)
-  const rightArrow = container.closest('section').querySelector('.arrow.left'); // select the close arrow to <name_container> easy ;)
+  const leftArrow = container.closest('section').querySelector('.arrow.left');
+  const rightArrow = container.closest('section').querySelector('.arrow.right');
 
   let currentPosition = 0;
-  const cardWidth = 250 + 16; // width + gap
+  const cardWidth = 250 + 16; // Width + gap
   const visibleCards = Math.floor(container.offsetWidth / cardWidth);
   let animeList = movieAnimeItems;
+
   if (name == 'anime-grid') {
     animeList = seasonAnimeItems;
   }
+
+  function updateArrowState() {
+    // Disable if at the start
+    leftArrow.disabled = currentPosition === 0;
+
+    // Disable if at the end
+    rightArrow.disabled =
+      currentPosition <= -(cardWidth * (animeList.length - visibleCards));
+  }
+
   function moveLeft() {
-    currentPosition += cardWidth;
-    if (currentPosition > 0) {
-      currentPosition = -(cardWidth * (animeList.length - visibleCards));
+    if (currentPosition < 0) {
+      currentPosition += cardWidth;
+      if (currentPosition > 0) {
+        currentPosition = 0;
+      }
+      container.style.transform = `translateX(${currentPosition}px)`;
+      updateArrowState();
     }
-    container.style.transform = `translateX(${currentPosition}px)`;
   }
 
   function moveRight() {
-    currentPosition -= cardWidth;
-    if (currentPosition < -(cardWidth * (animeList.length - visibleCards))) {
-      currentPosition = 0;
+    if (currentPosition > -(cardWidth * (animeList.length - visibleCards))) {
+      currentPosition -= cardWidth;
+      if (currentPosition < -(cardWidth * (animeList.length - visibleCards))) {
+        currentPosition = -(cardWidth * (animeList.length - visibleCards)); // Reset to the end
+      }
+      container.style.transform = `translateX(${currentPosition}px)`;
+      updateArrowState();
     }
-    container.style.transform = `translateX(${currentPosition}px)`;
   }
 
   leftArrow.addEventListener('click', moveLeft);
@@ -128,8 +145,12 @@ function setupCarousel(name = 'anime-moive-grid') {
     if (e.key === 'ArrowLeft') moveLeft();
     if (e.key === 'ArrowRight') moveRight();
   });
+  updateArrowState();
 }
 
-// getCurrentSeasonAnime();
-getCurrentSeasonAnime();
-getMoiveAnime();
+function initialize() {
+  // getCurrentSeasonAnime();
+  getCurrentSeasonAnime();
+  getMoiveAnime();
+}
+document.addEventListener('DOMContentLoaded', initialize);
