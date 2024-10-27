@@ -2,6 +2,9 @@
 
 This project is a final project for web preparation at Gaza Sky Geeks.
 
+### Live Demo
+[Live Demo tiiny](https://brown-jaine-1.tiiny.site/)
+
 ## Introduction
 
 This app is an anime selection/filtering app with a news discussion page. The website connects with the API [Jikan](https://jikan.moe/), which offers many rich ways to select and filter anime based on various characteristics.
